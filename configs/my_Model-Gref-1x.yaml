@@ -1,0 +1,45 @@
+MODEL:
+  META_ARCHITECTURE: "my_Model"
+  WEIGHTS: "/mnt/proj58/sjhuang/DET/detectron2/projects/my_RES/checkpoints/model_101_wo_ref.pth"
+  MASK_ON: True
+  PIXEL_MEAN: [103.530, 116.280, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  RESNETS:
+    DEPTH: 101
+    OUT_FEATURES: ["res2", "res3", "res4", "res5"]
+  FPN:
+    IN_FEATURES: ["res2", "res3", "res4", "res5"]
+    OUT_CHANNELS: 256
+  INFERENCE:
+    RET_THRES: 0.40
+  FEATURE_ENCODER:
+    CONVS_DIM: 64
+    IN_FEATURES: ['p3','p4','p5']
+DATASETS:
+  TRAIN: ("Gref_train",)
+  TEST: ("Gref_val",)
+  ROOT: "/mnt/proj58/sjhuang/DET/CMPC-Refseg/res_data_416"
+DATALOADER:
+  FILTER_EMPTY_ANNOTATIONS: True
+SOLVER:
+  BASE_LR: 0.01
+  WEIGHT_DECAY: 1e-4
+  LR_SCHEDULER_NAME: "WarmupPolyLR"
+  POLY_LR_POWER: 0.9
+  WARMUP_ITERS: 2000
+  WARMUP_FACTOR: 0.001
+  WARMUP_METHOD: "linear"
+  CLIP_GRADIENTS:
+    ENABLED: True
+    CLIP_VALUE: 35.0
+  IMS_PER_BATCH: 16
+  MAX_ITER: 90000
+  CHECKPOINT_PERIOD: 10000
+INPUT:
+  MASK_FORMAT: "bitmask"
+  FORMAT: "BGR"
+  RANDOM_FLIP: "none"
+VERSION: 2
+EMB_PATH: "/mnt/proj58/sjhuang/DET/detectron2/projects/final_RES/emb/Gref_emb.npy"
+USE_LANG_ATT: True
+OUTPUT_DIR: "./output/my_Model/Gref/"
