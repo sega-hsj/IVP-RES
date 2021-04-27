@@ -43,7 +43,7 @@ class ASPP_Head(nn.Module):
 
         out_img = self.avg_pool(feature_map)
         out_img = F.relu(self.bn_conv_1x1_2(self.conv_1x1_2(out_img)))
-        out_img = F.upsample(out_img, size=(feature_map_h, feature_map_w), mode="bilinear")
+        out_img = F.upsample(out_img, size=(feature_map_h, feature_map_w), mode="bilinear", align_corners=False)
 
         out = torch.cat([out_1x1, out_3x3_1, out_3x3_2, out_3x3_3, out_img], 1)
         out = F.relu(self.bn_conv_1x1_3(self.conv_1x1_3(out)))
