@@ -89,7 +89,7 @@ class Ref_SemSegEvaluator(DatasetEvaluator):
 
             self.sum_iou=0
             self.num=0
-            self.prec=np.zeros(10,dtype=np.int64)
+            self.prec=np.zeros(5,dtype=np.int64)
 
             for i in self._prec:
                 self.prec+=i
@@ -100,11 +100,11 @@ class Ref_SemSegEvaluator(DatasetEvaluator):
         
         res={}
         res["IoU"]=self.sum_iou/self.num*100
-        res["prec0.5"]=self.prec[5]/self.num*100
-        res["prec0.6"]=self.prec[6]/self.num*100
-        res["prec0.7"]=self.prec[7]/self.num*100
-        res["prec0.8"]=self.prec[8]/self.num*100
-        res["prec0.9"]=self.prec[9]/self.num*100
+        res["prec0.5"]=self.prec[0]/self.num*100
+        res["prec0.6"]=self.prec[1]/self.num*100
+        res["prec0.7"]=self.prec[2]/self.num*100
+        res["prec0.8"]=self.prec[3]/self.num*100
+        res["prec0.9"]=self.prec[4]/self.num*100
         result = OrderedDict({"ref_seg": res})
         self._logger.info(result)
         return result 
