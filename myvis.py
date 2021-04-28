@@ -7,7 +7,7 @@ from detectron2.config import get_cfg
 from detectron2.engine import DefaultTrainer, default_argument_parser, default_setup, launch
 from detectron2.evaluation import COCOEvaluator, verify_results
 
-from panopticfcn import add_panopticfcn_config, build_lr_scheduler
+from instance_aware_res import add_instance_aware_res_config, build_lr_scheduler
 os.environ["NCCL_LL_THRESHOLD"] = "0"
 from detectron2.data import MetadataCatalog
 from detectron2.evaluation import (
@@ -21,7 +21,7 @@ from detectron2.evaluation import (
     SemSegEvaluator,
     verify_results,
 )
-from Ref_datasets import get_ref_dataset,Ref_mapper
+from Ref_datasets import get_ref_dataset
 from detectron2.data import (
     MetadataCatalog,
     DatasetCatalog,
@@ -57,7 +57,7 @@ if __name__=="__main__":
     args = default_argument_parser().parse_args()
     print("Command Line Args:", args)
     cfg = get_cfg()
-    add_panopticfcn_config(cfg)
+    add_instance_aware_res_config(cfg)
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
 
@@ -66,9 +66,9 @@ if __name__=="__main__":
     cfg.freeze()
     default_setup(cfg, args)
 
-    Register_datasets(cfg.DATASETS.TRAIN)
+    Register_datasets(cfg.DATASETS.TRAIN,cfg.DATASETS.ROOT)
     if cfg.DATASETS.TEST[0]!=cfg.DATASETS.TRAIN[0]:
-        Register_datasets(cfg.DATASETS.TEST)
+        Register_datasets(cfg.DATASETS.TEST,cfg.DATASETS.ROOT)
 
     # predictor = DefaultPredictor(cfg)
     model = build_model(cfg)
@@ -93,7 +93,7 @@ if __name__=="__main__":
         iou=ii/oo
         sum_iou+=iou
         num+=1
-        print("idx = {}, cnt_iou = {}, mean_iou = {}".format(num,iou,sum_iou/num))
+        print("id = {}, IoU = {}, mIoU = {}".format(num,iou,sum_iou/num))
           
         for i in range(len(outputs[0]["pred_regions"])):
             torchvision.utils.save_image(outputs[0]["pred_regions"][i][0],'pred{}.jpg'.format(i))    
