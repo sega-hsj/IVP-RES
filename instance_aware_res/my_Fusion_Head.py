@@ -10,18 +10,18 @@ class Fusion_Head(nn.Module):
         super().__init__()
         norm = cfg.MODEL.POSITION_HEAD.NORM
         
-        self.vis_trans1 = SingleHead(2048+2, 1024, 2, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans1',activation=F.leaky_relu)
+        self.vis_trans1 = SingleHead(2048+2, 1024, 1, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans1',activation=F.leaky_relu)
         self.lang_trans1 = SingleHead(1024, 1024, 1, kernel_size=1, padding=0, deform=False, coord=False, norm=norm, name='lang_trans1',activation=F.leaky_relu)
 
-        self.vis_trans2 = SingleHead(1024+2, 1024, 2, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans2',activation=F.leaky_relu)
+        self.vis_trans2 = SingleHead(1024+2, 1024, 1, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans2',activation=F.leaky_relu)
         self.lang_trans2 = SingleHead(1024, 1024, 1, kernel_size=1, padding=0, deform=False, coord=False, norm=norm, name='lang_trans2',activation=F.leaky_relu)
 
-        self.vis_trans3 = SingleHead(512+2, 1024, 2, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans3',activation=F.leaky_relu)
+        self.vis_trans3 = SingleHead(512+2, 1024, 1, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans3',activation=F.leaky_relu)
         self.lang_trans3 = SingleHead(1024, 1024, 1, kernel_size=1, padding=0, deform=False, coord=False, norm=norm, name='lang_trans3',activation=F.leaky_relu)
 
-        self.fuse_trans1 = SingleHead(1024, 512, 2, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans1',activation=F.leaky_relu)
-        self.fuse_trans2 = SingleHead(1024+512, 512, 2, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans2',activation=F.leaky_relu)
-        self.fuse_trans3 = SingleHead(1024+512, 512, 2, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans3',activation=F.leaky_relu)
+        self.fuse_trans1 = SingleHead(1024, 512, 1, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans1',activation=F.leaky_relu)
+        self.fuse_trans2 = SingleHead(1024+512, 512, 1, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans2',activation=F.leaky_relu)
+        self.fuse_trans3 = SingleHead(1024+512, 512, 1, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans3',activation=F.leaky_relu)
 
 
     def mutan(self,vis_feat,lang_feat,vis_trans,lang_trans):
