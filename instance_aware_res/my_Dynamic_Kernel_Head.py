@@ -5,6 +5,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .my_Vis_Head import SingleHead
 
+
+def kernel_conv(kernel,encode_feat):
+    B,C,H,W=encode_feat.shape
+    encode_feat=encode_feat.reshape(B,C,H*W)
+    kernel=kernel.reshape(B,1,C)
+    pred=torch.matmul(kernel,encode_feat) #B,1,HW
+    pred=pred.reshape(B,1,H,W)
+
+
 class Decouple_Kernel_Head(nn.Module):
     def __init__(self, cfg, feat_dim=256, kernel_dim=256):
         super(Decouple_Kernel_Head, self).__init__()
@@ -54,14 +63,15 @@ class Dynamic_Kernel_Head(nn.Module):
         kernel=kernel_feat.reshape(B,C,-1).mean(dim=-1).reshape(B,C,1,1)
         return kernel
 
-    def forward(self,vis_feat,kernel_weight,encode_feat):
-        kernel=self.generate_kernel(vis_feat,kernel_weight)
-        kernel=self.kernel_trans(kernel)
-        B,C,H,W=encode_feat.shape
-        encode_feat=encode_feat.reshape(B,C,H*W)
-        kernel=kernel.reshape(B,1,C)
-        pred=torch.matmul(kernel,encode_feat) #B,1,HW
-        pred=pred.reshape(B,1,H,W)
+    def forward(self,vis_feats,kernel_weights,encode_feat):
+        kernels=[]
+        for vis_feat,kernel_weight in zip(vis_feats,kernel_weights):
+            kernel=self.generate_kernel(vis_feat,kernel_weight)
+            kernel=self.kernel_trans(kernel)
+            kernels.append(kernel)
+        kernels=torch.stack(kernels)
+        kernel=kernels.mean(dim=0)
+        pred=kernel_conv(kernel,encode_feat)
         return pred
 
 class Softmax_Kernel_Head(nn.Module):
@@ -87,15 +97,11 @@ class Softmax_Kernel_Head(nn.Module):
         kernels=[]
         for soft_score,kernel_weight in zip(soft_scores,kernel_weights):
             kernel=self.generate_kernel(soft_score,kernel_weight)
+            kernel=self.kernel_trans(kernel)
             kernels.append(kernel) #B,C,1,1
         kernels=torch.stack(kernels)
         kernel=kernels.mean(dim=0)
-        kernel=self.kernel_trans(kernel)
-        B,C,H,W=encode_feat.shape
-        encode_feat=encode_feat.reshape(B,C,H*W)
-        kernel=kernel.reshape(B,1,C)
-        pred=torch.matmul(kernel,encode_feat) #B,1,HW
-        pred=pred.reshape(B,1,H,W)
+        pred=kernel_conv(kernel,encode_feat)
         return pred
 
 
