@@ -37,7 +37,6 @@ def get_ref_dataset(data_root, dataset='referit', split='train'):
     dir_path=osp.join(data_root, dataset, "{}_batch".format(split))
     image_paths = os.listdir(dir_path)
     dataset_dicts=[]
-    count=0
     for path in image_paths:
         dataset_dicts.append(osp.join(dir_path,path))
     print("len of {} {} = {}".format(dataset,split,len(dataset_dicts)))
