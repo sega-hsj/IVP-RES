@@ -19,7 +19,7 @@ from .my_Lang_Feat_Head import *
 
 
 @META_ARCH_REGISTRY.register()
-class my_Model(nn.Module):
+class my_Model_soft2(nn.Module):
 
     def __init__(self, cfg):
         super().__init__()
@@ -42,8 +42,11 @@ class my_Model(nn.Module):
         # Ref_head
         self.fusion_head            = Fusion_Head(cfg)
         self.aspp_head              = ASPP_Head(cfg, 512)
-        self.pred_head              = Softmax_Kernel_Head(cfg, 256, 64)
+        self.inst_head              = Softmax_Inst_Head(cfg, 256, 256)
+        self.cat_trans              = SingleHead(256+256,256,1,kernel_size=3,padding=1,deform=False,coord=False,norm=cfg.MODEL.POSITION_HEAD.NORM,name='cat_trans')
         self.out_sem                = nn.Conv2d(256, 1, kernel_size=3, padding=1)
+        self.out_sem1               = nn.Conv2d(256, 1, kernel_size=3, padding=1)
+        self.out_sem2               = nn.Conv2d(256, 1, kernel_size=3, padding=1)
         # inference
         self.ret_thres              = cfg.MODEL.INFERENCE.RET_THRES
         self.to(self.device)
@@ -68,27 +71,34 @@ class my_Model(nn.Module):
         text_feats = self.lang_feat_head(batched_inputs) # get referring feature
 
         features,fpn_feats = self.get_backbone_feature(batched_inputs)
-        encode_feat, pred_weights = self.get_vis_feature(features,fpn_feats)
+        encode_feat, pred_weights = self.get_vis_feature(features,fpn_feats)  
         
-        modal_feats = self.fusion_head(features,text_feats)
+        modal_feats = self.fusion_head(features,text_feats) #B,512,H,W
         modal_feats = self.aspp_head(modal_feats)
-        
         stage_pred = self.out_sem(modal_feats)
         
-        final_pred = self.pred_head([stage_pred],[pred_weights],encode_feat)
+        inst_feats = self.inst_head(stage_pred,pred_weights,encode_feat)
+        inst_pred = self.out_sem1(inst_feats)
+
+        cat_feats = torch.cat([modal_feats,inst_feats],dim=1)
+        cat_feats = self.cat_trans(cat_feats) #B,512,H,W
+        final_pred = self.out_sem2(cat_feats)
 
         ground_truth = [x["sem_seg"].to(self.device) for x in batched_inputs]
         ground_truth = torch.stack(ground_truth).unsqueeze(1)
 
         if self.training:
             H,W=ground_truth.shape[-2:]
-            stage_pred = F.interpolate(stage_pred,size=(H,W),mode='bilinear', align_corners=False)
-            final_pred = F.interpolate(final_pred,size=(H,W),mode='bilinear', align_corners=False)
-            stage_loss = 0.5 * F.binary_cross_entropy_with_logits(stage_pred,ground_truth, reduction='mean')
+            stage_pred = F.interpolate(stage_pred, size=(H,W), mode='bilinear', align_corners=False)
+            inst_pred = F.interpolate(inst_pred, size=(H,W), mode='bilinear', align_corners=False)
+            final_pred = F.interpolate(final_pred, size=(H,W), mode='bilinear', align_corners=False)
+            stage_loss = 0.5 * F.binary_cross_entropy_with_logits(stage_pred, ground_truth, reduction='mean')
+            inst_loss = 0.5* F.binary_cross_entropy_with_logits(inst_pred, ground_truth, reduction='mean')
             final_loss = F.binary_cross_entropy_with_logits(final_pred, ground_truth, reduction='mean')
             
             loss={}
             loss['stage_loss'] = stage_loss
+            loss['inst_loss'] = inst_loss
             loss['final_loss'] = final_loss
             return loss
         else:
@@ -97,7 +107,7 @@ class my_Model(nn.Module):
             pred_region[pred_region>self.ret_thres]=1
             pred_region[pred_region<=self.ret_thres]=0
             pred_region=pred_region.int()
-            return [{"sem_seg":pred_region[0][0],"pred_regions":[stage_pred]}]
+            return [{"sem_seg":pred_region[0][0],"pred_regions":[stage_pred,inst_pred]}]
     
     @torch.no_grad()
     def resize_and_crop(self, im, input_h, input_w):
