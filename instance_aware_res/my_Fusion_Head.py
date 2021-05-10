@@ -54,3 +54,31 @@ class Fusion_Head(nn.Module):
         m3t=self.fuse_trans3(m3)
 
         return m3t
+
+
+class Fusion_Head_single(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        norm = cfg.MODEL.POSITION_HEAD.NORM
+        
+        self.vis_trans1 = SingleHead(512+2, 1024, 1, kernel_size=3, padding=1, deform=False, coord=True, norm=norm, name='vis_trans1',activation=F.leaky_relu)
+        self.lang_trans1 = SingleHead(1024, 1024, 1, kernel_size=1, padding=0, deform=False, coord=False, norm=norm, name='lang_trans1',activation=F.leaky_relu)
+
+      
+        self.fuse_trans1 = SingleHead(1024, 512, 1, kernel_size=3, padding=1, deform=False, coord=False, norm=norm, name='fuse_trans1',activation=F.leaky_relu)
+
+
+    def mutan(self,vis_feat,lang_feat,vis_trans,lang_trans):
+        H,W=vis_feat.shape[-2:]
+        vis_feat=vis_trans(vis_feat)
+        lang_feat=lang_trans(lang_feat.unsqueeze(-1).unsqueeze(-1)).repeat(1,1,H,W)
+        mutan_feat=vis_feat*lang_feat
+        return mutan_feat
+
+    def forward(self, vis_feat, lang_feat):
+        #input: [res3,res4,res5]
+        #ouput: B,512,H,W
+        mm=self.mutan(vis_feat,lang_feat,self.vis_trans1,self.lang_trans1)
+        tmm=self.fuse_trans1(mm)
+        
+        return tmm
