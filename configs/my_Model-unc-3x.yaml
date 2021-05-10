@@ -36,7 +36,7 @@ SOLVER:
     ENABLED: True
     CLIP_VALUE: 35.0
   IMS_PER_BATCH: 16
-  MAX_ITER: 90000
+  MAX_ITER: 270000
   CHECKPOINT_PERIOD: 30000
 INPUT:
   MASK_FORMAT: "bitmask"
@@ -45,4 +45,4 @@ INPUT:
 VERSION: 2
 EMB_PATH: "/mnt/proj58/sjhuang/DET/detectron2/projects/final_RES/emb/Gref_emb.npy"
 USE_LANG_ATT: True
-OUTPUT_DIR: "./output/my_Model_soft2/unc/1x"
+OUTPUT_DIR: "./output/my_Model_soft2/unc/3x"
