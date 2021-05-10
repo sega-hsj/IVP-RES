@@ -37,11 +37,11 @@ Download `Gref_emb.npy` and `referit_emb.npy` and put them in `data/`. We provid
 ## Training
 Train on UNC training set with:
 ```
-python -u trainval_model.py -m train -d unc -t train -n CMPC_model -emb -f ckpts/unc/cmpc_model
+python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4
 ```
 
 ## Testing
 Test on UNC validation set with:
 ```
-python -u trainval_model.py -m test -d unc -t val -n CMPC_model -i 700000 -c -emb -f ckpts/unc/cmpc_model
+python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --eval-only MODEL.WEIGHTS ./output/my_Model_soft2_ab2/unc/1x/model_final.pth DATASETS.TEST \(\"unc_val\",\)
 ```
