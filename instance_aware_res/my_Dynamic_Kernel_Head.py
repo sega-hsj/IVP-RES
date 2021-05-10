@@ -28,7 +28,7 @@ class Thres_Kernel_Head(nn.Module):
         
         keep=pred_region > self.thres
         if keep.sum()==0:
-            return torch.zeros(C,1,1).cuda()
+            return torch.zeros(64,1,1).cuda()
         kernel=kernel_weight[:,keep] # C,num
         kernel=kernel.mean(dim=-1) # C
         kernel=kernel.reshape(1,C,1,1)
@@ -100,6 +100,34 @@ class Softmax_Kernel_Head(nn.Module):
         kernel=kernels.mean(dim=0)
         pred=kernel_conv(kernel,encode_feat)
         return pred
+
+class Softmax_Inst_Head(nn.Module):
+    def __init__(self, cfg, input_dim=256, output_dim=64):
+        super(Softmax_Inst_Head, self).__init__()
+        norm = cfg.MODEL.POSITION_HEAD.NORM
+        self.kernel_trans = nn.Conv2d(input_dim, output_dim, kernel_size=1)
+
+    def generate_kernel(self,score,kernel_weight):
+        B,C,H,W=score.shape
+        score=score.reshape(B,1,-1)
+        score=torch.softmax(score,dim=-1) #B,1,HW
+
+        B,C,H,W=kernel_weight.shape
+        kernel_weight=kernel_weight.reshape(B,C,-1) #B,C,HW
+        score=score.repeat(1,C,1) #B,C,HW
+
+        kernel=kernel_weight*score
+        kernel=kernel.sum(dim=-1).reshape(B,C,1,1)
+        return kernel
+
+    def forward(self,soft_score,kernel_weight,encode_feat):
+        kernel=self.generate_kernel(soft_score,kernel_weight)
+        kernel=self.kernel_trans(kernel) #B,64,1,1
+        B,C,H,W=encode_feat.shape
+        kernel=kernel.repeat(1,1,H,W)
+        inst_feat=kernel*encode_feat
+        return inst_feat
+
 
 class Sigmoid_Kernel_Head(nn.Module):
     def __init__(self, cfg, input_dim=256, output_dim=64):
