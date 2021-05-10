@@ -19,7 +19,7 @@ from .my_Lang_Feat_Head import *
 
 
 @META_ARCH_REGISTRY.register()
-class my_Model_soft2(nn.Module):
+class my_Model(nn.Module):
 
     def __init__(self, cfg):
         super().__init__()
