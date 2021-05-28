@@ -85,6 +85,11 @@ We provide the [pre-trained models](https://www.abc.com) and Checkpoints for [Re
 
 ## Visualization
 
+Get visualization results with:
+```
+python myvis.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 1 MODEL.WEIGHTS ./output/my_Model_soft2_ab2/unc/1x/model_final.pth DATASETS.TEST \(\"unc_val\",\)
+```
+
 <div align="center">
   <img src="/visual.png"/>
 </div><br/>
