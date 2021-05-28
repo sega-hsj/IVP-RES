@@ -60,26 +60,25 @@ python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --
 
 We provide the [pre-trained models](https://www.abc.com) and Checkpoints for [RefCOCO](https://www.abc.com), [RefCOCO+](https://www.abc.com), [RefCOCOg](https://www.abc.com). 
 
-
-
+               
 <table>
 <tr><th> RefCOCO</th><th> RefCOCO+ </th><th> RefCOCOg </th></tr>
 <tr><td>
 
 | val               | test A            | test B            |
 | ----------------- | ----------------- | ---------- |
-| 69.10\%/53.00\% | 74.17\%/57.00\% | 59.75\%/46.96\% |
+| 67.40\% | 70.65\% | 64.32\% |
 </td><td>
 
 | val  | test A | test B |
 | ---- | ------ | ------ |
-| 49.04\% | 51.94\% | 44.31\% |
+| 57.32\% | 62.57\% | 49.15\% |
   
 </td><td>
   
 | val  | test |
 | ---- | ------ |
-| 49.04\% | 51.94\% |
+| 56.05\% | 56.83\% |
 
 </td></tr> </table>
 
