@@ -1,5 +1,11 @@
 # Instance-aware-RES
 
+Instance-aware Referring Expression Segmentation
+
+<div align="center">
+  <img src="docs/framework.png"/>
+</div><br/>
+
 ## Setup
 
 We recommended the following dependencies.
