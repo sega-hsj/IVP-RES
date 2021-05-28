@@ -63,11 +63,11 @@ We provide the [pre-trained models](https://www.abc.com) and training logs for R
 
 
 <table>
-<tr><th> RefCOCO[models](https://www.abc.com) </th><th> RefCOCO+[models](https://www.abc.com) </th><th> RefCOCOg[models](https://www.abc.com) </th></tr>
+<tr><th> RefCOCO(https://www.abc.com)</th><th> RefCOCO+(https://www.abc.com) </th><th> RefCOCOg(https://www.abc.com) </th></tr>
 <tr><td>
 
 | val               | test A            | test B            |
-| ----------------- | ----------------- | ----------------- |
+| ----------------- | ----------------- | ------------- |
 | 69.10\%/53.00\% | 74.17\%/57.00\% | 59.75\%/46.96\% |
 </td><td>
 
