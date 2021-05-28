@@ -67,7 +67,7 @@ We provide the [pre-trained models](https://www.abc.com) and training logs for R
 <tr><td>
 
 | val               | test A            | test B            |
-| ----------------- | ----------------- | ------------- |
+| ----------------- | ----------------- | ---------- |
 | 69.10\%/53.00\% | 74.17\%/57.00\% | 59.75\%/46.96\% |
 </td><td>
 
