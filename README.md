@@ -2,6 +2,8 @@
 
 **Instance-aware Referring Expression Segmentation**
 
+Shijia Huang, Tiancheng Shen, Yanwei Li, Shu Liu, Jiaya Jia, Liwei Wang
+
 <div align="center">
   <img src="/framework.png"/>
 </div><br/>
