@@ -56,14 +56,14 @@ Test on UNC validation set with:
 python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --eval-only MODEL.WEIGHTS ./output/my_Model_soft2_ab2/unc/1x/model_final.pth DATASETS.TEST \(\"unc_val\",\)
 ```
 
-## Pre-trained Models and Logs
+## Pre-trained Models and Checkpoints
 
-We provide the [pre-trained models](https://www.abc.com) and training logs for RefCOCO, RefCOCO+, RefCOCOg. 
+We provide the [pre-trained models](https://www.abc.com) and Checkpoints for [RefCOCO](https://www.abc.com), [RefCOCO+](https://www.abc.com), [RefCOCOg](https://www.abc.com). 
 
 
 
 <table>
-<tr><th> RefCOCO(https://www.abc.com)</th><th> RefCOCO+(https://www.abc.com) </th><th> RefCOCOg(https://www.abc.com) </th></tr>
+<tr><th> RefCOCO</th><th> RefCOCO+ </th><th> RefCOCOg </th></tr>
 <tr><td>
 
 | val               | test A            | test B            |
