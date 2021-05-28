@@ -1,6 +1,6 @@
 # Instance-aware-RES
 
-Instance-aware Referring Expression Segmentation
+**Instance-aware Referring Expression Segmentation**
 
 <div align="center">
   <img src="docs/framework.png"/>
