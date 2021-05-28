@@ -56,6 +56,53 @@ Test on UNC validation set with:
 python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --eval-only MODEL.WEIGHTS ./output/my_Model_soft2_ab2/unc/1x/model_final.pth DATASETS.TEST \(\"unc_val\",\)
 ```
 
+## Pre-trained Models and Logs
+
+We provide the [pre-trained models](https://www.abc.com) and training logs for RefCOCO, RefCOCO+, RefCOCOg. 
+
+1) RefCOCO: [trained models](https://www.abc.com).
+<table>
+<tr><th> Segmentation </th></tr>
+<tr><td>
+
+| val               | test A            | test B            |
+| ----------------- | ----------------- | ----------------- |
+| 63.12\% | 65.05\% | 60.99\% |
+</td><td>
+  
+</td></tr> </table>
+
+2) RefCOCO+: [trained models](https://www.abc.com).
+<table>
+<tr><th> Detection/Segmentation (Darknet) </th><th> Detection/Segmentation (vgg16)</th></tr>
+<tr><td>
+
+| val               | test A            | test B            |
+| ----------------- | ----------------- | ----------------- |
+| 69.10\%/53.00\% | 74.17\%/57.00\% | 59.75\%/46.96\% |
+</td><td>
+
+| val  | test A | test B |
+| ---- | ------ | ------ |
+| 64.67\%/49.04\% | 69.25\%/51.94\% | 57.01\%/44.31\% |
+</td></tr> </table>
+
+3) RefCOCOg: [trained models](https://www.abc.com).
+<table>
+<tr><th> Detection/Segmentation (Darknet) </th><th> Detection/Segmentation (vgg16)</th></tr>
+<tr><td>
+
+| val               | test              |
+| ----------------- | ----------------- |
+| 68.95\% / 50.65\% | 67.88\% / 50.62\% |
+</td><td>
+
+| val  | test |
+| ---- | ---- |
+| 63.50\% / 47.81\% | 63.32\% / 47.94\% |
+</td></tr> </table>
+
+## Visualization
 
 <div align="center">
   <img src="/visual.png"/>
