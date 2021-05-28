@@ -3,7 +3,7 @@
 **Instance-aware Referring Expression Segmentation**
 
 <div align="center">
-  <img src="/framework.pdf"/>
+  <img src="/framework.png"/>
 </div><br/>
 
 ## Setup
