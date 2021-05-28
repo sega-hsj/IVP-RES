@@ -57,6 +57,11 @@ python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --
 ```
 
 
+<div align="center">
+  <img src="/visual.png"/>
+</div><br/>
+
+
 ## <a name="CitingInstNet"></a>Citing Instance-aware-RES
 
 Consider cite Instance-aware-RES in your publications if it helps your research.
