@@ -4,6 +4,8 @@
 
 Shijia Huang, Tiancheng Shen, Yanwei Li, Shu Liu, Jiaya Jia, Liwei Wang
 
+[[`arXiv`](https://arxiv.org/pdf/xxxx.xxxx.pdf)] [[`BibTeX`](#CitingInstNet)]
+
 <div align="center">
   <img src="/framework.png"/>
 </div><br/>
@@ -52,4 +54,27 @@ python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4
 Test on UNC validation set with:
 ```
 python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --eval-only MODEL.WEIGHTS ./output/my_Model_soft2_ab2/unc/1x/model_final.pth DATASETS.TEST \(\"unc_val\",\)
+```
+
+
+## <a name="CitingInstNet"></a>Citing Instance-aware-RES
+
+Consider cite Instance-aware-RES in your publications if it helps your research.
+
+```
+@inproceedings{xxxx,
+  title={xxxx},
+  author={Shijia Huang, Tiancheng Shen, Yanwei Li, Shu Liu, Jiaya Jia, Liwei Wang},
+  booktitle={xxxx},
+  year={xxxx}
+}
+```
+Consider cite this project in your publications if it helps your research. 
+```
+@misc{Instance-aware-RES,
+    author = {Shijia Huang},
+    title = {Instance-aware-RES},
+    howpublished = {\url{https://github.com/sega-hsj/Instance-aware-RES}},
+    year ={2021}
+}
 ```
