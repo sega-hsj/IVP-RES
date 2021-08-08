@@ -1,6 +1,6 @@
 MODEL:
   META_ARCHITECTURE: "my_Model"
-  WEIGHTS: "/mnt/proj58/sjhuang/DET/detectron2/projects/my_RES/checkpoints/model_101_wo_ref.pth"
+  WEIGHTS: "INPUT THE PATH OF THE PRE-TRAIN WEIGHTS"
   MASK_ON: True
   PIXEL_MEAN: [103.530, 116.280, 123.675]
   PIXEL_STD: [1.0, 1.0, 1.0]
@@ -21,7 +21,7 @@ MODEL:
 DATASETS:
   TRAIN: ("unc_train",)
   TEST: ("unc_testB",)
-  ROOT: "/mnt/proj58/sjhuang/DET/CMPC-Refseg/res_data_416"
+  ROOT: "INPUT THE ROOT OF THE DATASET"
 DATALOADER:
   FILTER_EMPTY_ANNOTATIONS: True
 SOLVER:
@@ -36,13 +36,13 @@ SOLVER:
     ENABLED: True
     CLIP_VALUE: 35.0
   IMS_PER_BATCH: 16
-  MAX_ITER: 270000
+  MAX_ITER: 90000
   CHECKPOINT_PERIOD: 30000
 INPUT:
   MASK_FORMAT: "bitmask"
   FORMAT: "BGR"
   RANDOM_FLIP: "none"
 VERSION: 2
-EMB_PATH: "/mnt/proj58/sjhuang/DET/detectron2/projects/final_RES/emb/Gref_emb.npy"
+EMB_PATH: "INPUT THE PATH OF THE EMBEDDINGS"
 USE_LANG_ATT: True
-OUTPUT_DIR: "./output/my_Model_soft2/unc/3x"
+OUTPUT_DIR: "INPUT THE OUTPUT DIR"
