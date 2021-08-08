@@ -1,1 +1,1 @@
-python train.py --config-file configs/my_Model-Gref-1x.yaml --num-gpus 4 --dist-url 'tcp://127.0.0.1:12314'
+python train.py --config-file configs/my_Model-unc-1x.yaml --num-gpus 2 --dist-url 'tcp://127.0.0.1:12314'
