@@ -2,7 +2,7 @@
 
 **Referring Expression Segmentation with Instance-aware Visual Priors**
 
-[[`arXiv`](https://arxiv.org/pdf/xxxx.xxxx.pdf)] [[`BibTeX`](#CitingIVP)]
+<!-- [[`arXiv`](https://arxiv.org/pdf/xxxx.xxxx.pdf)] [[`BibTeX`](#CitingIVP)] -->
 
 <div align="center">
   <img src="/framework.png"/>
