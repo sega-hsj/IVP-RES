@@ -15,7 +15,7 @@ We recommended the following dependencies.
 * Python 3.6
 * Numpy
 
-This code is derived from [RRN](https://github.com/liruiyu/referseg_rrn) \[2\]. Please refer to it for more details of setup.
+<!-- This code is derived from [RRN](https://github.com/liruiyu/referseg_rrn) \[2\]. Please refer to it for more details of setup. -->
 
 ## Data Preparation
 * Dataset Preprocessing
@@ -36,10 +36,10 @@ python build_batches.py -d referit -t trainval
 python build_batches.py -d referit -t test
 ```
 
-* Glove Embedding
+<!-- * Glove Embedding -->
 
-Download `Gref_emb.npy` and `referit_emb.npy` and put them in `data/`. We provide download link for Glove Embedding here:
-[Baidu Drive](https://pan.baidu.com/s/19f8CxT3lc_UyjCIIE_74FA), password: 2m28.
+<!-- Download `Gref_emb.npy` and `referit_emb.npy` and put them in `data/`. We provide download link for Glove Embedding here: -->
+<!-- [Baidu Drive](https://pan.baidu.com/s/19f8CxT3lc_UyjCIIE_74FA), password: 2m28. -->
 
 
 ## Training
@@ -56,10 +56,9 @@ python train.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 4 --
 
 ## Pre-trained Models and Checkpoints
 
-We provide the [pre-trained models](https://www.abc.com) and Checkpoints for [RefCOCO](https://www.abc.com), [RefCOCO+](https://www.abc.com), [RefCOCOg](https://www.abc.com). 
+Pending...
 
-               
-<table>
+<!-- <table>
 <tr><th> RefCOCO</th><th> RefCOCO+ </th><th> RefCOCOg </th></tr>
 <tr><td>
 
@@ -79,7 +78,7 @@ We provide the [pre-trained models](https://www.abc.com) and Checkpoints for [Re
 | 56.05\% | 56.83\% |
 
 </td></tr> </table>
-
+ -->
 
 ## Visualization
 
@@ -93,24 +92,7 @@ python myvis.py --config-file configs/my_Model_soft2-unc-3x.yaml --num-gpus 1 MO
 </div><br/>
 
 
-## <a name="CitingInstNet"></a>Citing Instance-aware-RES
+## <a name="CitingInstNet"></a>Citing IVP
 
-Consider cite Instance-aware-RES in your publications if it helps your research.
-
-```
-@inproceedings{xxxx,
-  title={xxxx},
-  author={Shijia Huang, Tiancheng Shen, Yanwei Li, Shu Liu, Jiaya Jia, Liwei Wang},
-  booktitle={xxxx},
-  year={xxxx}
-}
-```
-Consider cite this project in your publications if it helps your research. 
-```
-@misc{Instance-aware-RES,
-    author = {Shijia Huang},
-    title = {Instance-aware-RES},
-    howpublished = {\url{https://github.com/sega-hsj/Instance-aware-RES}},
-    year ={2021}
-}
-```
+Pending...
+<!-- Consider cite Instance-aware-RES in your publications if it helps your research. -->
