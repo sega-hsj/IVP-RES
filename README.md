@@ -1,4 +1,4 @@
-# IVP
+# IVP-RES
 
 **Referring Expression Segmentation with Instance-aware Visual Priors**
 
