@@ -1,10 +1,8 @@
-# Instance-aware-RES
+# IVP
 
-**Instance-aware Referring Expression Segmentation**
+**Referring Expression Segmentation with Instance-aware Visual Priors**
 
-Shijia Huang, Tiancheng Shen, Yanwei Li, Shu Liu, Jiaya Jia, Liwei Wang
-
-[[`arXiv`](https://arxiv.org/pdf/xxxx.xxxx.pdf)] [[`BibTeX`](#CitingInstNet)]
+[[`arXiv`](https://arxiv.org/pdf/xxxx.xxxx.pdf)] [[`BibTeX`](#CitingIVP)]
 
 <div align="center">
   <img src="/framework.png"/>
